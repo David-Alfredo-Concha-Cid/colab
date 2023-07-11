@@ -19,8 +19,7 @@ class Student(models.Model):
     first_name = models.Charfield(max_length = 128)
     last_name = models.Charfield(max_length = 128)
     email = models.Charfield(max_length = 128)
-
-
+    
 class Subscription(models.Model):
     student = models.ForeignKey(Student, on_delete = models.PROTECT)
     subject = models.ForeignKey(Subject, on_delete = models.PROTECT)
