@@ -42,15 +42,19 @@ class Command(BaseCommand):
     def seeds_student(self, mode):
         if mode == "load" and Student.objects.all().count() <= 0:
             s = Student()
+            s.username = "juancito"
             s.first_name = "Juancito"
             s.last_name = "Espinoza"
             s.email = "juan@gmail.com"
+            s.set_password('123456')
             s.save()
 
             s = Student()
+            s.username = "ramiro"
             s.first_name = "Ramiro"
             s.last_name = "Espinoza"
             s.email = "ramiro@gmail.com"
+            s.set_password('123456')
             s.save()
         elif mode == "clear":
             Student.objects.all().delete()
@@ -75,15 +79,19 @@ class Command(BaseCommand):
         if mode == "load" and Teacher.objects.all().count() <= 0:
             # Verificamos que solo see creen docentes una sola vez
             t = Teacher()
+            t.username = "pepito"
             t.first_name = "Pepito"
             t.last_name = "Alcachofa"
             t.bio = "Este es un bio del docente"
+            t.set_password('123456')
             t.save()
 
             t = Teacher()
+            t.username = "carlito"
             t.first_name = "Carlito"
             t.last_name = "Alcachofa"
             t.bio = "Este es un bio del docente"
+            t.set_password('123456')
             t.save()
         elif mode == "clear":
             Teacher.objects.all().delete()
