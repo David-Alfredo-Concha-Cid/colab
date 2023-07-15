@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from .models import Course, Subscription, Subject
+from .models import Course, Subscription, Subject, Student
 from django.contrib.auth.decorators import login_required, permission_required
 
 
@@ -18,6 +18,22 @@ def v_course(request, course_id):
     context = {
         'course': Course.objects.get(id = course_id)
     }
+
+    #traer el ultimo subject de un curso
+    subject = Subject.objects.filter(course_id = course_id).last()
+    if subject is None:
+        return HttpResponseRedirect("/") #Redirigir al home, inicio
+
+    context['subs'] = subject
+
+    if request.user.is_authenticated:
+        if Student.objects.filter(id = request.user.id).exists(): #true si existe
+            # yo estoy 100% seguro que se trata de un estudiante
+            verificar = Subscription.objects.filter(subject_id = subject.id, 
+                student_id = request.user.id).exists() # retorna true o false
+            # verificar es true, el estudiando se ha suscrito
+            # verificar es False, no existe un registro, el estudiante no suscrito
+        context['subscribed'] = verificar
     return render(request, 'course.html', context)
 
 @login_required(login_url = "/admin/login")
