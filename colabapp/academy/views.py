@@ -33,7 +33,7 @@ def v_course(request, course_id):
                 student_id = request.user.id).exists() # retorna true o false
             # verificar es true, el estudiando se ha suscrito
             # verificar es False, no existe un registro, el estudiante no suscrito
-        context['subscribed'] = verificar
+            context['subscribed'] = verificar
     return render(request, 'course.html', context)
 
 @login_required(login_url = "/admin/login")
